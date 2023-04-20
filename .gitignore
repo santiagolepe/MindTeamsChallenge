@@ -1,0 +1,9 @@
+node_modules/
+*.log
+.idea/
+.eslintcache
+certs/
+yarn.lock
+package-lock.json
+server/coverage
+.env
