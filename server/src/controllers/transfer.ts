@@ -9,31 +9,34 @@ import { Request, Response } from "express";
  */
 export async function getTransfer (req: Request, res: Response): Promise<void> {
   try {
-    const { accountId, userId, startDate, endDate } = req.query;
+    const { account, user, started_at, ended_at } = req.query;
 
   const filter: any = {};
 
-  if (accountId) {
-    filter.account = accountId;
+  if (account) {
+    filter.account = account;
   }
 
-  if (userId) {
-    filter.user = userId;
+  if (user) {
+    filter.user = user;
   }
 
-  if (startDate && endDate) {
-    filter.startDate = { $gte: new Date(startDate as string) };
-    filter.endDate = { $lte: new Date(endDate as string) };
+  if (started_at) {
+    filter.started_at = { $gte: new Date(started_at as string) };
+  }
+
+  if (ended_at) {
+    filter.ended_at = { $lte: new Date(ended_at as string) };
   }
 
   const transferLogs = await Transfer.find(filter)
-    .populate("user")
+    .populate("user", "-password")
     .populate("account");
 
   res.json(transferLogs);
   
   } catch (error) {
-    console.error("Failed to fetch transfers", { query: req.query });
+    console.error("Failed to fetch transfers", { query: req.query, error });
 
     res.status(500).json({
       error: "Failed to fetch transfers, please try again",
