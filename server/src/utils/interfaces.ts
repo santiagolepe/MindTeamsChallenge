@@ -5,11 +5,11 @@ import ServerNet from "../lib/server";
 // create an intefrace that extends of Request
 export interface IUserAuthRequest extends Request {
   userId?: string;
-  role?: string;
+  role?  : string;
 }
 
 export interface IServer {
-  app?: Express;
+  app?   : Express;
   server?: ServerNet;
-  init: () => void;
+  init   : () => void;
 }

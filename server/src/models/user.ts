@@ -3,23 +3,23 @@ import bcrypt from "bcrypt";
 import { Roles } from "../utils/schemas";
 
 interface IUser extends Document {
-  name: string;
-  email: string;
-  role: Roles;
-  password: string;
+  name         : string;
+  email        : string;
+  role         : Roles;
+  password     : string;
   englishLevel?: string;
-  skills?: string;
-  resumeLink?: string;
+  skills?      : string;
+  resumeLink?  : string;
 };
 
 const userSchema: Schema<IUser> = new Schema({
-  name: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  name        : { type: String, required: true },
+  email       : { type: String, required: true, unique: true },
+  password    : { type: String, required: true },
   englishLevel: { type: String },
-  skills: { type: String },
-  resumeLink: { type: String },
-  role: { type: String, default: "user" },
+  skills      : { type: String },
+  resumeLink  : { type: String },
+  role        : { type: String, default: "user" },
 }, {
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
