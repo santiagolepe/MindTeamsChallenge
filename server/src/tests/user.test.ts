@@ -4,6 +4,7 @@ import authRoutes from "../routes/auth";
 import userRoutes from "../routes/user";
 import MongoDB from '../services/mongo';
 import User from  '../models/user';
+import { sleep } from "./helper";
 
 const app = express();
 app.use(express.json());
@@ -47,7 +48,7 @@ let tokenUser: string;
 
 beforeAll(async() => {
   await MongoDB.init();
-  await User.deleteMany();
+  let users = await User.deleteMany({});
   await User.create(admin);
   await User.create(user);
 });
@@ -173,5 +174,5 @@ describe("User C.R.U.D.", () => {
 });
 
 afterAll(async() => {
-  await User.deleteMany();
+  await User.deleteMany({});
 });

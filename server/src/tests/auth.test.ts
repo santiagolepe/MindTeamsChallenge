@@ -3,6 +3,7 @@ import express from "express";
 import authRoutes from "../routes/auth";
 import MongoDB from '../services/mongo';
 import User from  '../models/user';
+import { sleep } from "./helper";
 
 const app = express();
 app.use(express.json());
@@ -25,8 +26,9 @@ let tokenAdmin: string;
 
 beforeAll(async() => {
   await MongoDB.init();
-  await User.deleteMany();
-  await User.create(admin);
+  await User.deleteMany({});
+  let record = new User(admin);
+  await record.save()
 });
 
 describe("Authentication", () => {
@@ -59,8 +61,8 @@ describe("Authentication", () => {
     const res = await request(app)
       .post("/auth/login")
       .send(admin);
-    
-    expect(res.status).toEqual(200);
+
+      expect(res.status).toEqual(200);
     expect(res.body).toHaveProperty("token");
     tokenAdmin = res.body.token;
   });
@@ -91,5 +93,5 @@ describe("Authentication", () => {
 });
 
 afterAll(async() => {
-  await User.deleteMany();
+  await User.deleteMany({});
 });
