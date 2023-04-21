@@ -1,5 +1,7 @@
 import authRoutes from "./routes/auth";
 import userRoutes from "./routes/user";
+import accountRoutes from "./routes/account";
+import transferRoutes from "./routes/transfer";
 import { versioning } from "./utils/versioning";
 import { errorMiddleware } from "./middlewares/error";
 import dotenv from "dotenv";
@@ -13,6 +15,8 @@ export default {
 
     Server.app?.use(`/auth`, authRoutes);
     Server.app?.use(`/api/v${apiVersion}/users`, versioning(apiVersion), userRoutes);
+    Server.app?.use(`/api/v${apiVersion}/accounts`, versioning(apiVersion), accountRoutes);
+    Server.app?.use(`/api/v${apiVersion}/transfers`, versioning(apiVersion), transferRoutes);
     Server.app?.use(errorMiddleware);
 
     console.info('Routes loaded ');
