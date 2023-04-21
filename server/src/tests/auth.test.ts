@@ -21,6 +21,8 @@ let unregister = {
   password: 'password1@'
 }
 
+let tokenAdmin: string;
+
 beforeAll(async() => {
   await MongoDB.init();
   await User.deleteMany();
@@ -60,17 +62,13 @@ describe("Authentication", () => {
     
     expect(res.status).toEqual(200);
     expect(res.body).toHaveProperty("token");
+    tokenAdmin = res.body.token;
   });
 
   it("should return 200 logout admin", async () => {
-    const { body } = await request(app)
-      .post("/auth/login")
-      .send(admin);
-    const { token } = body;
-
     const res = await request(app)
       .post("/auth/logout")
-      .set("Authorization", `Bearer ${token}`);
+      .set("Authorization", `Bearer ${tokenAdmin}`);
 
     expect(res.status).toEqual(200);
   });
