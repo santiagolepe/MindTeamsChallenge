@@ -34,6 +34,31 @@ export async function getProfile (req: IUserAuthRequest, res: Response): Promise
  * @param req
  * @param res
  * @return {Promise<createServer.NextHandleFunction | Response | void | * | Promise<any>>}
+ * GET /users/:id
+ */
+export async function getUser (req: IUserAuthRequest, res: Response): Promise<void> {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+  
+    res.json(user);
+
+  } catch (error) {
+    console.error("Failed to fetch user", { params: req.params });
+
+    res.status(500).json({
+      error: "Failed to fetch user, please try again",
+    }); 
+  }
+};
+
+/**
+ * @param req
+ * @param res
+ * @return {Promise<createServer.NextHandleFunction | Response | void | * | Promise<any>>}
  * GET /users
  */
 export async function getUsers (req: Request, res: Response): Promise<void> {

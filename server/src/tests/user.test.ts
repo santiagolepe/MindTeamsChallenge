@@ -34,6 +34,12 @@ let newUser = {
   role: "user"
 };
 
+const updateUser = {
+  name: "Updated User Two",
+  role: "user",
+  email: newUser.email,
+};
+
 let newUserId: string;
 
 let tokenAdmin: string;
@@ -117,15 +123,18 @@ describe("User C.R.U.D.", () => {
   });
 
   it("should admin update a user", async () => {
-    const updateUser = {
-      name: "Updated User Two",
-      role: "user",
-      email: newUser.email,
-    };
-    newUser.name = "Updated User Two";
     const res = await request(app)
       .put(`/users/${newUserId}`)
       .send(updateUser)
+      .set("Authorization", `Bearer ${tokenAdmin}`);
+    
+    expect(res.status).toEqual(200);
+    expect(res.body).toMatchObject(updateUser);
+  });
+
+  it("should admin get a new user info", async () => {
+    const res = await request(app)
+      .get(`/users/${newUserId}`)
       .set("Authorization", `Bearer ${tokenAdmin}`);
     
     expect(res.status).toEqual(200);
@@ -138,6 +147,16 @@ describe("User C.R.U.D.", () => {
       .set("Authorization", `Bearer ${tokenAdmin}`);
     
     expect(res.status).toEqual(204);
+  });
+
+  it("should get user profile", async () => {
+    const res = await request(app)
+      .get("/users/profile")
+      .set("Authorization", `Bearer ${tokenAdmin}`);
+    
+    expect(res.status).toEqual(200);
+    expect(res.body.name).toBe(admin.name);
+    expect(res.body.skills).toBe(admin.skills);
   });
 
   it("should get user profile", async () => {

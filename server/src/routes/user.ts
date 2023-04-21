@@ -1,23 +1,27 @@
 import { Router } from "express";
 import { authMiddleware, requireRole } from "../middlewares/auth";
+import { Roles } from '../utils/schemas'
 import { 
   getUsers,
   updateUser,
   createUser,
   deleteUser,
-  getProfile
+  getProfile,
+  getUser
 } from '../controllers/user'
 
 const router = Router();
 
 router.get("/profile", authMiddleware, getProfile);
 
-router.get("/", authMiddleware, requireRole("admin", "super_admin"), getUsers);
+router.get("/:id", authMiddleware, requireRole(Roles.admin, Roles.super_admin), getUser);
 
-router.post("/", authMiddleware, requireRole("admin", "super_admin"), createUser);
+router.get("/", authMiddleware, requireRole(Roles.admin, Roles.super_admin), getUsers);
 
-router.put("/:id", authMiddleware, requireRole("admin", "super_admin"), updateUser);
+router.post("/", authMiddleware, requireRole(Roles.admin, Roles.super_admin), createUser);
 
-router.delete("/:id", authMiddleware, requireRole("admin", "super_admin"), deleteUser);
+router.put("/:id", authMiddleware, requireRole(Roles.admin, Roles.super_admin), updateUser);
+
+router.delete("/:id", authMiddleware, requireRole(Roles.admin, Roles.super_admin), deleteUser);
 
 export default router;
