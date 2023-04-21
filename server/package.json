@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "test": "jest --coverage",
+    "test": "jest --coverage --runInBand --watch",
     "seed": "ts-node src/seed.ts"
   },
   "author": "Octavio Santiago",
@@ -32,6 +32,7 @@
     "typescript": "^5.0.4"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
     "@types/cors": "^2.8.13",
     "@types/jest": "^29.5.1",
     "@types/supertest": "^2.0.12",
