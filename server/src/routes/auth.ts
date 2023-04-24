@@ -6,6 +6,43 @@ import bcrypt from "bcrypt";
 
 const router = Router();
 
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Authenticate super_admin, admin or user getting JWT token
+ *     tags: [Auth]
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: The user's email
+ *                 example: superAdmin@mind.com
+ *               password:
+ *                 type: string
+ *                 description: The user's password
+ *                 example: p@ssword123
+ *             required:
+ *               - email
+ *               - password
+ *     responses:
+ *       200:
+ *         description: Successful operation
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: JWT token
+ *       401:
+ *         description: Invalid email or password
+ */
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -26,6 +63,20 @@ router.post("/login", async (req, res) => {
   res.json({ token });
 });
 
+/**
+ * @swagger
+ * /auth/logout:
+ *   post:
+ *     summary: Invalidate JWT
+ *     tags: [Auth]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *       401:
+ *         description: Invalid token
+ */
 router.post("/logout", authMiddleware, (req, res) => {
   res.sendStatus(200);
 });

@@ -63,7 +63,7 @@ export async function getUser (req: IUserAuthRequest, res: Response): Promise<vo
  */
 export async function getUsers (req: Request, res: Response): Promise<void> {
   try {
-    const users = await User.find();
+    const users = await User.find({}, "-password");
     res.status(200).json(users);  
 
   } catch (error) {

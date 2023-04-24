@@ -1,5 +1,11 @@
 import MongoDB from './services/mongo';
 import User from './models/user';
+import { faker } from '@faker-js/faker';
+import { Roles } from './utils/schemas';
+
+const password: string = 'p@ssword123';
+const totalUsers: number = 100;
+const totalAdmins: number = 100;
 
 async function seed () {
   await MongoDB.init();
@@ -7,27 +13,35 @@ async function seed () {
   // first delete all collections
   await User.deleteMany();
 
-  // create admin, super_admin, user
+  // create super_admin
   await User.create({
     name: 'superAdmin',
     email: 'superAdmin@mind.com',
-    password: 'superAdminPassword',
-    role: 'super_admin'
+    password,
+    role: Roles.super_admin
   });
 
-  await User.create({
-    name: 'admin',
-    email: 'admin@mind.com',
-    password: 'adminPassword',
-    role: 'admin'
-  });
+  // create admins
+  for (let x = 0; x < totalAdmins; x++) {
+    await User.create({
+      name: faker.name.firstName(),
+      email: faker.internet.email(),
+      password,
+      role: Roles.admin
+    });
+  }
 
-  await User.create({
-    name: 'user',
-    email: 'user@mind.com',
-    password: 'userPassword',
-    role: 'user'
-  });
+   // create users
+   for (let x = 0; x < totalUsers; x++) {
+    await User.create({
+      name: faker.name.firstName(),
+      email: faker.internet.email(),
+      password,
+      role: Roles.user
+    });
+  }
+
+
 }
 
 seed().then(() => {
