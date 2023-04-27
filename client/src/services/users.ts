@@ -9,6 +9,15 @@ export const fetchAllUsers = async (token: string): Promise<IUser[]> => {
   return response.data;
 };
 
+export const getUser = async (token: string, userId: string): Promise<IUser[]> => {
+  const response = await api.get('/users/' + userId, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return response.data;
+};
+
+
 export const createUser = async (token: string, user: IUser): Promise<IUser> => {
   const response = await api.post('/users', user, {
     headers: { Authorization: `Bearer ${token}` },
@@ -38,5 +47,6 @@ export default {
   fetchAllUsers,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  getUser,
 }
