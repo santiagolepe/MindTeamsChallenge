@@ -2,12 +2,14 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import authReducer from './slices/authSlice';
 import usersReducer from './slices/usersSlice';
 import alertSlice from './slices/alertSlice';
+import accountsSlice from './slices/accountsSlice';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     users: usersReducer,
     alerts: alertSlice,
+    accounts: accountsSlice,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware()
 });

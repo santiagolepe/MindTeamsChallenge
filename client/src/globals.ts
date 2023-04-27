@@ -12,6 +12,16 @@ export interface IUser {
   updated_at   : Date;
 }
 
+export interface IAccount {
+  _id        : string;
+  name       : string;
+  client     : string;
+  responsible: IUser;
+  team       : IUser[];
+  created_at : Date;
+  updated_at : Date;
+}
+
 export interface IAlertProps {
   message: string;
   variant?: 'danger' | 'success';
@@ -28,3 +38,8 @@ export interface ILoginResponse {
   token: string;
 }
 
+export interface IAvatarProps {
+  name: string;
+  width?: number;
+  height?: number;
+}
