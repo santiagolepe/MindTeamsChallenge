@@ -5,6 +5,7 @@ import { logoutUser } from '../slices/authSlice';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 
+
 const Header: React.FC = () => {
   const dispatch = useAppDispatch();
   const token = useSelector((state: RootState) => state.auth.token);
@@ -16,8 +17,9 @@ const Header: React.FC = () => {
 
   const loginButton = !token ? (
     <Nav.Link href="/login">Login</Nav.Link>
-  ) : (
+) : (
     <NavDropdown title={user?.name} id="basic-nav-dropdown">
+              <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
       <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
     </NavDropdown>
   );
@@ -28,7 +30,7 @@ const Header: React.FC = () => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="/profile">Home</Nav.Link>
         </Nav>
         <Nav className=" ms-auto pe-md-5 navbar-nav">
           {loginButton}

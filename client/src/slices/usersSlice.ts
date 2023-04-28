@@ -69,6 +69,7 @@ export const fetchUsers = (): AppThunk => async (dispatch, getState) => {
   }
 };
 
+
 export const addUser = createAsyncThunk(
   'users/addUser',
   async (user: any, thunkAPI) => {

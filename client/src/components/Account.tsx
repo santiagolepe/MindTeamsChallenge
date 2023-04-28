@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Spinner, Alert, Button, Card, ListGroup, Col, Row, Container } from 'react-bootstrap';
+import { Spinner, Alert, Button, Card, ListGroup, Col, Row, Badge } from 'react-bootstrap';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { showAlert } from '../slices/alertSlice';
 import Avatar from './Avatar';
@@ -91,7 +91,7 @@ const Accounts: React.FC = () => {
             account.team.map(user => (
               <ListGroup.Item  key={user._id}>
                 <i className="fas fa-trash text-danger" onClick={() => handleRemoveUserTeam({ accountId: account._id, userId: user._id })}></i>
-                { user.name }
+                { user.name } <Badge bg="success" pill>{ user.role }</Badge>
               </ListGroup.Item>
             ))
           }
@@ -117,7 +117,7 @@ const Accounts: React.FC = () => {
   };
 
   return (
-    <Container>
+    <div className='content'>
       <h2>
         Accounts 
         <Button variant="secondary" onClick={_=> setShowModalForm(true)}>+</Button>
@@ -147,7 +147,7 @@ const Accounts: React.FC = () => {
       </Row>
             
       }
-    </Container>
+    </div>
   );
 };
 

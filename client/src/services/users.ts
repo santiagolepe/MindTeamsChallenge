@@ -1,6 +1,14 @@
 import { api } from "./apis";
 import { IUser } from "../globals";
 
+export const getProfile = async (token: string): Promise<IUser> => {
+  const response = await api.get('/users/profile', {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return response.data;
+};
+
 export const fetchAllUsers = async (token: string): Promise<IUser[]> => {
   const response = await api.get('/users', {
     headers: { Authorization: `Bearer ${token}` },
@@ -9,7 +17,7 @@ export const fetchAllUsers = async (token: string): Promise<IUser[]> => {
   return response.data;
 };
 
-export const getUser = async (token: string, userId: string): Promise<IUser[]> => {
+export const getUser = async (token: string, userId: string): Promise<IUser> => {
   const response = await api.get('/users/' + userId, {
     headers: { Authorization: `Bearer ${token}` },
   });
@@ -49,4 +57,5 @@ export default {
   updateUser,
   deleteUser,
   getUser,
+  getProfile,
 }

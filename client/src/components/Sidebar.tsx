@@ -4,7 +4,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 
 const Sidebar: React.FC = () => {
   return (
-    <Nav className="flex-column">
+    <Nav className="flex-column bg-light sidebar">
       <LinkContainer to="/users">
         <Nav.Link>Users</Nav.Link>
       </LinkContainer>

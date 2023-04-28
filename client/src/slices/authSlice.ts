@@ -53,5 +53,6 @@ export const logoutUser = (): AppThunk => async (dispatch: any, getState: any) =
 };
 
 export const selectToken = (state: RootState): string | null => state.auth.token;
+export const selectProfile = (state: RootState): IUser | null => state.auth.user;
 export const { setToken, setUser } = authSlice.actions;
 export default authSlice.reducer;

@@ -39,7 +39,7 @@ const Transfers: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='content'>
       <h2>Transfers </h2>
       <FilterForm users={users} accounts={accounts} onSubmit={handleSubmit} />
       {error && (

@@ -15,7 +15,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     try {
       await dispatch(loginUser(email, password)); 
-      navigate('/users');
+      navigate('/profile');
     } catch (error) {
       console.error('Login:', error);
       dispatch(showAlert({ message: 'Error during login. Please check your email and password.', variant: "danger" }));
@@ -28,7 +28,7 @@ const Login: React.FC = () => {
       <Form onSubmit={handleSubmit}>
         
         <Form.Group controlId="email">
-          <Form.Label>Email address</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email"

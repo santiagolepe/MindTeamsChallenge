@@ -40,14 +40,16 @@ const Users: React.FC = () => {
       <tr key={user._id}>
         <td>
           <Button
+            size='sm'
             variant="danger"
             onClick={() => handleDeleteUser(user._id)}>
-            Delete
+            <i className="fas fa-trash danger"></i>
           </Button>
           <Button
+            size='sm'
             variant="info"
             onClick={() => handleEditUser(user)}>
-            Edit
+            <i className="fas fa-edit primary"></i>
           </Button>
         </td>
         <td>{user._id}</td>
@@ -62,10 +64,10 @@ const Users: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='content'>
       <h2>
         Users 
-        <Button variant="secondary" onClick={() => setShowModal(true)}>+</Button>
+        <Button size='sm' variant="secondary" onClick={() => setShowModal(true)}>+</Button>
       </h2>
       
       <UserForm show={showModal} user={user} onSuccess={() => { setShowModal(false); setUser(null!); }} />
