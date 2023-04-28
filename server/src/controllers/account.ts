@@ -1,6 +1,5 @@
 import Account from "../models/account";
 import User from "../models/user";
-import Transfer from "../models/transfer";
 import { Request, Response } from "express";
 import { validator } from "../utils/validator";
 import { CreateAccountSchema } from "../utils/schemas";
@@ -153,12 +152,6 @@ export async function addUserAccount (req: Request, res: Response): Promise<void
     if (!account.team.includes(user._id)) {
       account.team.push(user._id);
       await account.save();
-
-      // create a log transfer with start_at Date now
-      await Transfer.create({
-        user: user._id,
-        account: account._id,
-      });
     }
 
     res.json(account);
@@ -198,8 +191,6 @@ export async function removeUserAccount (req: Request, res: Response): Promise<v
     account.team.pull(userId);
     await account.save();
 
-    // update transfer logs, adding end_at
-    await Transfer.findOneAndUpdate({ user: user._id, account: account._id }, { ended_at: new Date() }, { new: false });
     res.json(account);
     
   } catch (error) {

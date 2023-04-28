@@ -3,7 +3,7 @@ import { AppThunk, RootState } from '../store';
 import apiAccount from '../services/accounts';
 import apiUser from '../services/users';
 import { selectToken } from './authSlice';
-import { IUser, IAccount } from '../globals';
+import { IAccount } from '../globals';
 
 interface AccountsState {
   accounts: IAccount[];
