@@ -3,6 +3,7 @@ import authReducer from './slices/authSlice';
 import usersReducer from './slices/usersSlice';
 import alertSlice from './slices/alertSlice';
 import accountsSlice from './slices/accountsSlice';
+import transfersSlice from './slices/transfersSlice';
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     users: usersReducer,
     alerts: alertSlice,
     accounts: accountsSlice,
+    transfers: transfersSlice,
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware()
 });

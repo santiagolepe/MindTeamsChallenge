@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Users from './components/Users';
 import Accounts from './components/Account';
+import Transfers from './components/Transfers';
 import { RootState } from './store';
 import { RequireAuth } from './components/RequireAuth';
 import Alert from './components/Alert';
@@ -28,6 +29,7 @@ const App: React.FC = () => {
           <Route path="/" element={<RequireAuth><Home /></RequireAuth>}>
             <Route path="users" element={<Users />} />
             <Route path="accounts" element={<Accounts />} />
+            <Route path="transfers" element={<Transfers />} />
           </Route>
         </Routes>
       </Router>

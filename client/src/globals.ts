@@ -23,21 +23,21 @@ export interface IAccount {
 }
 
 export interface IAlertProps {
-  message: string;
+  message : string;
   variant?: 'danger' | 'success';
   timeout?: number;
 }
 
 export interface IUserFormProps {
   onSuccess: () => void;
-  show: boolean;
-  user: IUser | null;
+  show     : boolean;
+  user     : IUser | null;
 }
 
 export interface IAccountFormProps {
   onSuccess: () => void;
-  show: boolean;
-  account: IAccount | null;
+  show     : boolean;
+  account  : IAccount | null;
 }
 
 export interface ILoginResponse {
@@ -45,7 +45,22 @@ export interface ILoginResponse {
 }
 
 export interface IAvatarProps {
-  name: string;
-  width?: number;
+  name   : string;
+  width? : number;
   height?: number;
+}
+
+export interface ITransfer {
+  _id       : string;
+  user      : IUser;
+  account   : IAccount;
+  started_at: Date;
+  ended_at  : Date;
+};
+
+export interface IFilter {
+  userId   : string;
+  accountId: string;
+  startedAt: string;
+  endedAt  : string;
 }

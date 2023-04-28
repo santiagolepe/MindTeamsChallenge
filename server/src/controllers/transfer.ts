@@ -9,24 +9,24 @@ import { Request, Response } from "express";
  */
 export async function getTransfer (req: Request, res: Response): Promise<void> {
   try {
-    const { account, user, started_at, ended_at } = req.query;
+    const { accountId, userId, startedAt, endedAt } = req.query;
 
   const filter: any = {};
 
-  if (account) {
-    filter.account = account;
+  if (accountId) {
+    filter.account = accountId;
   }
 
-  if (user) {
-    filter.user = user;
+  if (userId) {
+    filter.user = userId;
   }
 
-  if (started_at) {
-    filter.started_at = { $gte: new Date(started_at as string) };
+  if (startedAt) {
+    filter.started_at = { $gte: new Date(startedAt as string) };
   }
 
-  if (ended_at) {
-    filter.ended_at = { $lte: new Date(ended_at as string) };
+  if (endedAt) {
+    filter.ended_at = { $lte: new Date(endedAt as string) };
   }
 
   const transferLogs = await Transfer.find(filter)
