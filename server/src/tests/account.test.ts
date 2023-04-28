@@ -59,7 +59,7 @@ describe("Account C.R.U.D.", () => {
 
     expect(res.status).toEqual(201);
     expect(res.body.client).toBe(newAccount.client);
-    expect(res.body.responsible).toBe(String(userId));
+    expect(res.body.responsible._id).toBe(String(userId));
     testAccount = res.body;
   });
 

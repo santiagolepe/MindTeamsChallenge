@@ -36,15 +36,6 @@ beforeAll(async() => {
     responsible: userId,
     team: [userId],
   });
-
-  // seed transfers
-  await Transfer.create({
-    user: user._id,
-    account: account._id,
-    started_at,
-    ended_at
-  });
-
 });
 
 describe("Transfer Log filter", () => {
