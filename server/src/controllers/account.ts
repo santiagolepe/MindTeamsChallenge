@@ -65,9 +65,10 @@ export async function createAccount (req: Request, res: Response): Promise<void>
   }
   
   try {
-    const account = new Account(data);
-    await account.save();
-    res.status(201).json(account);
+    let account = new Account(data);
+    account = await account.save();
+    let response = await Account.findById(account._id).populate("responsible").populate("team");
+    res.status(201).json(response);
    
   } catch (error) {
     console.error("Failed to create account", { body: req.body, error });
@@ -93,7 +94,7 @@ export async function updateAccount (req: Request, res: Response): Promise<void>
   
   try {
     const { id } = req.params;
-    const account = await Account.findByIdAndUpdate(id, data, { new: true });
+    const account = await Account.findByIdAndUpdate(id, data, { new: true }).populate("responsible").populate("team");
     res.json(account);
   
   } catch (error) {

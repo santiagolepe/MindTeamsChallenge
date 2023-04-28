@@ -29,7 +29,7 @@ const generateAvatar = (name: string, width: number, height: number): string => 
     .join('');
 
   // add second char
-  if (initials.length === 1 && name.length > 2) {
+  if (initials.length === 1 && name.length > 1) {
     initials += name[1].toUpperCase()
   }
 

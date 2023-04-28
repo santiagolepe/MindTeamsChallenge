@@ -34,6 +34,12 @@ export interface IUserFormProps {
   user: IUser | null;
 }
 
+export interface IAccountFormProps {
+  onSuccess: () => void;
+  show: boolean;
+  account: IAccount | null;
+}
+
 export interface ILoginResponse {
   token: string;
 }

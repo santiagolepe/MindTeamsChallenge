@@ -18,6 +18,8 @@ import {
   fetchUsers, 
   selectUsers, 
 } from '../slices/usersSlice';
+import AccountForm from './AccountForm';
+import { IAccount } from '../globals';
 
 const Accounts: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +30,8 @@ const Accounts: React.FC = () => {
 
   const [showModalUser, setShowModalUser] = useState(false);
   const [accountId, setAccountId] = useState('');
+  const [account, setAccount] = useState<IAccount>();
+  const [showModalForm, setShowModalForm] = useState(false);
 
   const handleDeleteAccount = async (account: string) => {
     try {
@@ -72,6 +76,15 @@ const Accounts: React.FC = () => {
           <Card.Title>{ account.name }</Card.Title>
           <Card.Text>{ account.client }</Card.Text>
           <Card.Text><span className='badge bg-secondary text-wrap'>Responsible:</span> { account.responsible.name }</Card.Text>
+       
+          <Button
+            size='sm'
+            variant="secondary"
+            onClick={() => { setShowModalUser(true); setAccountId(account._id); }}>
+            <i className="fas fa-user secondary"></i>
+            + add user team
+          </Button>
+
         </Card.Body>
         <ListGroup className="list-group-flush scrollTeams">
           {
@@ -87,7 +100,7 @@ const Accounts: React.FC = () => {
           <Button
             size='sm'
             variant="primary"
-            onClick={() => handleDeleteAccount(account._id)}>
+            onClick={() => { setAccount(account); setShowModalForm(true); }}>
             <i className="fas fa-edit primary"></i>
           </Button>
           <Button
@@ -96,13 +109,7 @@ const Accounts: React.FC = () => {
             onClick={() => handleDeleteAccount(account._id)}>
             <i className="fas fa-trash danger"></i>
           </Button>
-          <Button
-            size='sm'
-            variant="secondary"
-            onClick={() => { setShowModalUser(true); setAccountId(account._id); }}>
-              add user team
-            <i className="fas fa-user secondary"></i>
-          </Button>
+
         </Card.Body>
       </Card>
       </Col>
@@ -113,7 +120,8 @@ const Accounts: React.FC = () => {
     <Container>
       <h2>
         Accounts 
-        <Button variant="secondary">+</Button>
+        <Button variant="secondary" onClick={_=> setShowModalForm(true)}>+</Button>
+        <AccountForm show={showModalForm} account={account!} onSuccess={() => { setShowModalForm(false); setAccount(null!); }} />
       </h2>
 
       <UserModal
