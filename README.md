@@ -29,11 +29,12 @@ This project aims to showcase my expertise as a software engineer using modern t
 ```
 
 Create a .env file in the project root and set the required environment variables:
-
+```
   MONGO_URI=mongodb://localhost:27017/mind
   JWT_SECRET=secret_mind
   PORT=3000
   API_VERSION="1"
+```
 
 Run the seed file to have data for testing
 ```bash
@@ -63,6 +64,7 @@ and finally to run tests coverage run
 
 ## TODO`S
 
+- [ ] Add docker, docker compose
 - [ ] Implement pagination for large datasets
 - [ ] Improve styling and layout
 - [ ] Implement real-time updates using WebSockets
