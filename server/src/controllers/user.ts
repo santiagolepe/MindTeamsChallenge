@@ -138,7 +138,10 @@ export async function updateUser (req: Request, res: Response): Promise<void> {
 export async function deleteUser (req: Request, res: Response): Promise<void> {
   try {
     const { id } = req.params;
-    await User.findByIdAndRemove(id);
+    let user = await User.findById(id);
+    if (user) {
+      await user.remove();
+    }
     res.sendStatus(204);
 
   } catch (error) {

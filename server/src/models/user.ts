@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import bcrypt from "bcrypt";
 import { Roles } from "../utils/schemas";
+import Transfer from "./transfer";
 
 interface IUser extends Document {
   name         : string;
@@ -30,6 +31,11 @@ userSchema.pre<IUser>("save", async function (next) {
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
+});
+
+// remove all logs Transfer files
+userSchema.post<IUser>("remove", async function () {
+  await Transfer.deleteMany({ user: this._id });
 });
 
 userSchema.methods.comparePassword = function (candidatePassword: string) {
