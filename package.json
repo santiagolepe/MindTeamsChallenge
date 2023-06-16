@@ -4,8 +4,11 @@
   "description": "Mind Teams Challenge",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
+    "tsc": "twsc",
     "dev": "nodemon src/index.ts",
     "test": "jest --coverage --runInBand --watch",
+    "postinstall": "npm run build",
     "seed": "ts-node src/seed.ts"
   },
   "author": "Octavio Santiago",
