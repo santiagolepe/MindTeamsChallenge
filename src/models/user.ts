@@ -1,5 +1,4 @@
 import mongoose, { Schema, Document } from "mongoose";
-import bcrypt from "bcrypt";
 import { Roles } from "../utils/schemas";
 import Transfer from "./transfer";
 
@@ -28,8 +27,6 @@ const userSchema: Schema<IUser> = new Schema({
 userSchema.pre<IUser>("save", async function (next) {
   if (!this.isModified("password")) return next();
 
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
@@ -39,7 +36,6 @@ userSchema.post<IUser>("remove", async function () {
 });
 
 userSchema.methods.comparePassword = function (candidatePassword: string) {
-  return bcrypt.compare(candidatePassword, this.password);
 };
 
 const User = mongoose.model("User", userSchema);

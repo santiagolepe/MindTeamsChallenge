@@ -1,10 +1,13 @@
-import { Router } from "express";
-import jwt from "jsonwebtoken";
-import User from "../models/user";
-import { authMiddleware } from "../middlewares/auth";
-
-const router = Router();
-
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const user_1 = __importDefault(require("../models/user"));
+const auth_1 = require("../middlewares/auth");
+const router = (0, express_1.Router)();
 /**
  * @swagger
  * /auth/login:
@@ -43,25 +46,18 @@ const router = Router();
  *         description: Invalid email or password
  */
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
-
-  const user = await User.findOne({ email });
-
-  if (!user) {
-    return res.status(401).json({ message: "Invalid email or password" });
-  }
-
-  const isMatch =true;
-
-  if (!isMatch) {
-    return res.status(401).json({ message: "Invalid email or password" });
-  }
-
-  const token = jwt.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET!, { expiresIn: "1h" });
-
-  res.json({ token });
+    const { email, password } = req.body;
+    const user = await user_1.default.findOne({ email });
+    if (!user) {
+        return res.status(401).json({ message: "Invalid email or password" });
+    }
+    const isMatch = true;
+    if (!isMatch) {
+        return res.status(401).json({ message: "Invalid email or password" });
+    }
+    const token = jsonwebtoken_1.default.sign({ userId: user.id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    res.json({ token });
 });
-
 /**
  * @swagger
  * /auth/logout:
@@ -76,8 +72,8 @@ router.post("/login", async (req, res) => {
  *       401:
  *         description: Invalid token
  */
-router.post("/logout", authMiddleware, (req, res) => {
-  res.sendStatus(200);
+router.post("/logout", auth_1.authMiddleware, (req, res) => {
+    res.sendStatus(200);
 });
-
-export default router;
+exports.default = router;
+//# sourceMappingURL=auth.js.map
